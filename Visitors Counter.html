@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Counter</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        h1 {
+            margin-top: 100px;
+        }
+        #counter {
+            font-size: 38px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Visitor Counter</h1>
+    <p>You are visitor number:</p>
+    <p id="counter">0</p>
+
+    <script>
+        function updateVisitorCount() {
+            if (typeof(Storage) !== "undefined") {
+                if (localStorage.visitorCount) {
+                    localStorage.visitorCount = Number(localStorage.visitorCount) + 1;
+                } else {
+                    localStorage.visitorCount = 1;
+                }
+                document.getElementById("counter").innerText = localStorage.visitorCount;
+            } else {
+                document.getElementById("counter").innerText = "Local storage is not supported.";
+            }
+        }
+
+        // Update visitor count on page load
+        updateVisitorCount();
+    </script>
+</body>
+</html>
