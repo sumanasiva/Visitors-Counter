@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>XML Search Box</title>
+    <script>
+        function searchXML() {
+            var input = document.getElementById("searchInput").value.toLowerCase();
+            var a = new XMLHttpRequest();
+            a.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+ var xmlDoc = this.responseXML;
+ var elements = xmlDoc.getElementsByTagName("element");
+ var suggestionsContainer = document.getElementById("suggestionsContainer");
+suggestionsContainer.innerHTML = "";
+for (var i = 0; i < elements.length; i++) {
+ var elementText = elements[i].textContent.toLowerCase();
+  if (elementText.includes(input)) {
+  suggestionsContainer.innerHTML += elements[i].textContent + "<br>";
+                        }
+                    }
+  if (suggestionsContainer.innerHTML === "") {
+  suggestionsContainer.innerHTML = "No suggestions.";
+   }
+  }
+ };
+            a.open("GET", "data.xml", true);
+            a.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Search </h1>
+    <input type="text" id="searchInput" placeholder="Enter a character to search">
+    <button onclick="searchXML()">Search</button>
+    <div id="suggestionsContainer"></div>
+</body>
+</html>
